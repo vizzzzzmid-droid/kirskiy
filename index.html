@@ -689,40 +689,50 @@
 
     <div class="pricing-grid" style="justify-content:center; max-width:480px; margin: 0 auto;">
       <div class="price-card popular" style="width:100%;">
-        <div class="popular-badge">🔥 Единственный тариф</div>
-        <div>
-          <div class="price-period">VPN Германия · 1 месяц</div>
-          <div class="price-amount">130₽ <span>/ мес</span></div>
-        </div>
-        <ul class="price-features">
-          <li>Безлимитный трафик</li>
-          <li>Быстрая поддержка</li>
-          <li>Простая настройка</li>
-          <li>Сервер в Германии 🇩🇪</li>
-          <li>VLESS + Reality — не блокируется</li>
-        </ul>
+         <div class="popular-badge">🔥 130₽ / месяц</div>
+         <div>
+           <div class="price-period" id="selectedServerLabel">VPN Германия · 1 месяц</div>
+           <div class="price-amount">130₽ <span>/ мес</span></div>
+         </div>
+         <ul class="price-features" id="selectedServerFeatures">
+           <li>Безлимитный трафик</li>
+           <li>Быстрая поддержка</li>
+           <li>Простая настройка</li>
+           <li>Сервер в Германии 🇩🇪</li>
+           <li>VLESS + Reality — не блокируется</li>
+         </ul>
 
-        <div id="buyForm" style="display:flex;flex-direction:column;gap:10px;">
-          <input
-            id="buyEmail"
-            type="email"
-            placeholder="Ваш email для получения ссылки"
-            style="width:100%;padding:13px 16px;border-radius:999px;border:2px solid rgba(107,76,42,.2);background:#f5efe6;font-family:'Nunito',sans-serif;font-size:.9rem;color:#3a2e24;outline:none;transition:border-color .2s;box-sizing:border-box;"
-            onfocus="this.style.borderColor='#c9773a'"
-            onblur="this.style.borderColor='rgba(107,76,42,.2)'"
-          >
-          <button
-            onclick="startBuy()"
-            id="buyBtn"
-            style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 20px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,#c9773a,#6b4c2a);color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;box-shadow:0 6px 20px rgba(107,76,42,.25);transition:transform .2s,box-shadow .2s;width:100%;"
-            onmouseover="this.style.transform='scale(1.03)'"
-            onmouseout="this.style.transform='scale(1)'"
-          >
-            💳 Оплатить 130₽
-          </button>
-          <div id="buyError" style="display:none;color:#c0392b;font-size:.8rem;text-align:center;padding:4px 0;"></div>
-          <p style="text-align:center;font-size:.75rem;color:#9c8878;margin:0;">Оплата через ЮКассу · Карты РФ · Мгновенная выдача</p>
-        </div>
+         <div id="buyForm" style="display:flex;flex-direction:column;gap:10px;">
+           <div style="display:flex;gap:8px;margin-bottom:2px;">
+             <button id="btnDe" onclick="selectServer('de')"
+               style="flex:1;padding:10px 8px;border-radius:999px;border:2px solid #c9773a;cursor:pointer;background:linear-gradient(135deg,#c9773a,#6b4c2a);color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;transition:all .2s;">
+               🇩🇪 Германия
+             </button>
+             <button id="btnNl" onclick="selectServer('nl')"
+               style="flex:1;padding:10px 8px;border-radius:999px;border:2px solid rgba(107,76,42,.2);cursor:pointer;background:#f5efe6;color:#6b4c2a;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;transition:all .2s;">
+               🇳🇱 Нидерланды
+             </button>
+           </div>
+           <input
+             id="buyEmail"
+             type="email"
+             placeholder="Ваш email для получения ссылки"
+             style="width:100%;padding:13px 16px;border-radius:999px;border:2px solid rgba(107,76,42,.2);background:#f5efe6;font-family:'Nunito',sans-serif;font-size:.9rem;color:#3a2e24;outline:none;transition:border-color .2s;box-sizing:border-box;"
+             onfocus="this.style.borderColor='#c9773a'"
+             onblur="this.style.borderColor='rgba(107,76,42,.2)'"
+           >
+           <button
+             onclick="startBuy()"
+             id="buyBtn"
+             style="display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 20px;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(135deg,#c9773a,#6b4c2a);color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.95rem;box-shadow:0 6px 20px rgba(107,76,42,.25);transition:transform .2s,box-shadow .2s;width:100%;"
+             onmouseover="this.style.transform='scale(1.03)'"
+             onmouseout="this.style.transform='scale(1)'"
+           >
+             💳 Оплатить 130₽
+           </button>
+           <div id="buyError" style="display:none;color:#c0392b;font-size:.8rem;text-align:center;padding:4px 0;"></div>
+           <p style="text-align:center;font-size:.75rem;color:#9c8878;margin:0;">Оплата через ЮКассу · Карты РФ · Мгновенная выдача</p>
+         </div>
 
         <div style="display:flex;align-items:center;gap:10px;margin:4px 0;">
           <div style="flex:1;height:1px;background:rgba(107,76,42,.15);"></div>
@@ -765,6 +775,35 @@ document.getElementById('successModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
+let selectedServer = 'de';
+
+function selectServer(s) {
+  selectedServer = s;
+  const btnDe = document.getElementById('btnDe');
+  const btnNl = document.getElementById('btnNl');
+  const label = document.getElementById('selectedServerLabel');
+  const features = document.getElementById('selectedServerFeatures');
+  if (s === 'de') {
+    btnDe.style.background = 'linear-gradient(135deg,#c9773a,#6b4c2a)';
+    btnDe.style.color = '#fff';
+    btnDe.style.borderColor = '#c9773a';
+    btnNl.style.background = '#f5efe6';
+    btnNl.style.color = '#6b4c2a';
+    btnNl.style.borderColor = 'rgba(107,76,42,.2)';
+    label.textContent = 'VPN Германия · 1 месяц';
+    features.innerHTML = '<li>Безлимитный трафик</li><li>Быстрая поддержка</li><li>Простая настройка</li><li>Сервер в Германии 🇩🇪</li><li>VLESS + Reality — не блокируется</li>';
+  } else {
+    btnNl.style.background = 'linear-gradient(135deg,#c9773a,#6b4c2a)';
+    btnNl.style.color = '#fff';
+    btnNl.style.borderColor = '#c9773a';
+    btnDe.style.background = '#f5efe6';
+    btnDe.style.color = '#6b4c2a';
+    btnDe.style.borderColor = 'rgba(107,76,42,.2)';
+    label.textContent = 'VPN Нидерланды · 1 месяц';
+    features.innerHTML = '<li>Безлимитный трафик</li><li>Быстрая поддержка</li><li>Простая настройка</li><li>Сервер в Нидерландах 🇳🇱</li><li>VLESS + TLS — не блокируется</li>';
+  }
+}
+
 async function startBuy() {
   const emailInput = document.getElementById('buyEmail');
   const btn = document.getElementById('buyBtn');
@@ -783,7 +822,7 @@ async function startBuy() {
     const res = await fetch('https://wp.kirskiy.shop/buy/create-payment', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email}),
+      body: JSON.stringify({email, server: selectedServer}),
     });
     const data = await res.json();
     if (!res.ok || !data.payment_url) throw new Error(data.detail || 'Ошибка сервера');
