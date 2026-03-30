@@ -712,10 +712,7 @@
               style="flex:1;padding:10px 8px;border-radius:999px;border:2px solid #c9773a;cursor:pointer;background:linear-gradient(135deg,#c9773a,#6b4c2a);color:#fff;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;transition:all .2s;">
               🇩🇪 Германия
             </button>
-            <button id="btnNl" onclick="selectSrv('nl')"
-              style="flex:1;padding:10px 8px;border-radius:999px;border:2px solid rgba(107,76,42,.2);cursor:pointer;background:#f5efe6;color:#6b4c2a;font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;transition:all .2s;">
-              🇳🇱 Нидерланды
-            </button>
+
           </div>
 
           <!-- Email -->
@@ -796,22 +793,11 @@ var _srv = 'de';
 function selectSrv(s) {
   _srv = s;
   var de = document.getElementById('btnDe');
-  var nl = document.getElementById('btnNl');
   var label = document.getElementById('serverLabel');
   var feat = document.getElementById('serverFeatures');
-  var activeStyle = 'linear-gradient(135deg,#c9773a,#6b4c2a)';
-  var inactiveStyle = '#f5efe6';
-  if (s === 'de') {
-    de.style.background = activeStyle; de.style.color = '#fff'; de.style.borderColor = '#c9773a';
-    nl.style.background = inactiveStyle; nl.style.color = '#6b4c2a'; nl.style.borderColor = 'rgba(107,76,42,.2)';
-    label.textContent = 'VPN Германия · 1 месяц';
-    feat.innerHTML = '<li>Безлимитный трафик</li><li>Быстрая поддержка</li><li>Простая настройка</li><li>Сервер в Германии 🇩🇪</li><li>VLESS + Reality — не блокируется</li>';
-  } else {
-    nl.style.background = activeStyle; nl.style.color = '#fff'; nl.style.borderColor = '#c9773a';
-    de.style.background = inactiveStyle; de.style.color = '#6b4c2a'; de.style.borderColor = 'rgba(107,76,42,.2)';
-    label.textContent = 'VPN Нидерланды · 1 месяц';
-    feat.innerHTML = '<li>Безлимитный трафик</li><li>Быстрая поддержка</li><li>Простая настройка</li><li>Сервер в Нидерландах 🇳🇱</li><li>VLESS + TLS — не блокируется</li>';
-  }
+  de.style.background = 'linear-gradient(135deg,#c9773a,#6b4c2a)'; de.style.color = '#fff'; de.style.borderColor = '#c9773a';
+  label.textContent = 'VPN Германия · 1 месяц';
+  feat.innerHTML = '<li>Безлимитный трафик</li><li>Быстрая поддержка</li><li>Простая настройка</li><li>Сервер в Германии 🇩🇪</li><li>VLESS + Reality — не блокируется</li>';
 }
 
 // Оплата
